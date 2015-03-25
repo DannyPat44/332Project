@@ -1,3 +1,23 @@
+<?php 
+    // First we execute our common code to connection to the database and start the session 
+    require("common.php"); 
+     
+    // At the top of the page we check to see whether the user is logged in or not 
+    if(empty($_SESSION['member'])) 
+    { 
+        // If they are not, we redirect them to the login page. 
+        header("Location: login.php"); 
+         
+        // Remember that this die statement is absolutely critical.  Without it, 
+        // people can view your members-only content without logging in. 
+        die("Redirecting to login.php"); 
+    } 
+     
+    // Everything below this point in the file is secured by the login system 
+     
+    // We can display the user's username to them by reading it from the session array.  Remember that because 
+    // a username is user submitted content we must use htmlentities on it before displaying it to the user. 
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,10 +58,13 @@
 	<!-- <select name="location"> -->
 	
 	<?php
-
-	$memNo =303;
-	$dbh = new PDO('mysql:host=localhost;dbname=KTCS', "root", "");
-	$rows = $dbh->query("SELECT locName FROM Locations");
+	#$dbh = new PDO('mysql:host=localhost;dbname=KTCS', "root", "");
+	$memNoRes = $db->query("Select MemberNo from member where Email = '".$_SESSION['member']['Email']."'");
+	foreach ($memNoRes as $memNo1){
+	$memNo = $memNo1['MemberNo'];
+	}
+	#echo $memNo;
+	$rows = $db->query("SELECT locName FROM Locations");
 	#$con = mysql_connect("localhost","root","") or die ("Could not connect to mysql");
 	#mysql_select_db("$KTCS") or die ("no database");
 	
@@ -84,7 +107,7 @@
 	$newreturnDate = date("Y-m-d", strtotime($returnDate));
 	$newreturnDateTime = $newreturnDate.' '.$_POST["returnTime"];
 	try {
-	$dbh = new PDO('mysql:host=localhost;dbname=KTCS', "root", "");
+	#$dbh = new PDO('mysql:host=localhost;dbname=KTCS', "root", "");
 	$query1 = "SELECT * 
 	FROM car join locations on car.LocNo = locations.LocNo
 	WHERE VIN NOT IN(SELECT VIN FROM reservations WHERE(('$newpickupDateTime' <= ReturnTime AND ReturnTime <= '$newreturnDateTime')
@@ -94,7 +117,7 @@
 	
 	
 	
-		$rows1 = $dbh->query($query1);
+		$rows1 = $db->query($query1);
 	
 		echo $query1;
 		if($rows1 != NULL)
@@ -106,7 +129,7 @@
 		#echo "<td><input type='submit' name='makeResBtn' value = 'Make Reservation' id='". $row1['VIN'] ."' /></td></tr>";
 		
 		 #echo "<td><button type='button' >Make Reservation</button>   ";
-         echo "<td><a href='makeResDB.php?VIN=".$row1['VIN']."&amp;memNo=".$memNo."&amp;PickUpTime=".$newpickupDateTime."&amp;ReturnTime=".$newreturnDateTime."&amp;LocNo=".$locNo."' >Make Reservation</a></td></tr>";
+         echo "<td><a href='makeResDB.php?VIN=".$row1['VIN']."&amp;memNo=".$memNo."&amp;PickUpTime=".$newpickupDateTime."&amp;ReturnTime=".$newreturnDateTime."&amp;LocNo=".$locNo."&amp;LocName=".$location."' >Make Reservation</a></td></tr>";
 	
 		$query1 = null;
 		} 
