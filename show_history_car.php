@@ -9,44 +9,7 @@
   
 </head>
 <body>
-
-<form action="show_history_car.php" method="post"> 
-Select the cars VIN number:
-<?php
-	
-	$VINS = $db->query("SELECT VIN FROM car");
-	
-
-	echo "<select name='VIN'  value='Choose'>Dropdown</option>";
-	
-	foreach ($VINS as $row) {
-		echo "<option value='$row[VIN]'</option>";
-		echo "<p>"."$row[VIN]"."</p>";
-	}
-	
-	echo "</select>";
-	?>
-<input type="submit" value="Search" />
-</form>
-
-<form action="charge_members.php" method="post"> 
-Date of Annual Membership Renewal:
-    <input type="text" id=datepicker name="date">
-    <br /><br /> 	
-<input type="submit" value="Search" />
-
-<table>
-		<th>Reservation Number</th>
-		<th>Member Number</th>
-		<th>VIN</th>
-		<th>Reservation Date</th>
-		<th>Pickup Time</th>
-		<th>Pickup Loction</th>
-		<th>Return Time</th>
-		<th>Pickup ODM Reading</th>
-		<th>Return ODM Reading</th>
-		<th>Charge</th>
-
+<h2>Rental History</h2>
 <?php 
 
     // First we execute our common code to connection to the database and start the session 
@@ -67,23 +30,58 @@ Date of Annual Membership Renewal:
      
     // We can display the user's username to them by reading it from the session array.  Remember that because 
     // a username is user submitted content we must use htmlentities on it before displaying it to the user. 
+?> 
+
+<form action="show_history_car.php" method="post"> 
+Select the cars VIN number:
+<?php
+	
+	$VINS = $db->query("SELECT VIN FROM history");
+	
+
+	echo "<select name='VIN'  value='Choose'>Dropdown</option>";
+	
+	foreach ($VINS as $row) {
+		echo "<option value='$row[VIN]'</option>";
+		echo "<p>"."$row[VIN]"."</p>";
+	}
+	
+	echo "</select>";
+	?>
+<input type="submit" value="Search" />
+</form>
+
+<form action="charge_members.php" method="post"> 
+
+<table>
+		<th>Reservation Number</th>
+		<th>Member Number</th>
+		<th>Reservation Date</th>
+		<th>Pickup Time</th>
+		<th>Pickup Loction</th>
+		<th>Return Time</th>
+		<th>Distance</th>
+		<th>Charge</th>
+
+<?php 
+
 	
 	  if(!empty($_POST)) 
 		{ 
 	
-	$VINOFINT = $_POST["date"];
+	$VINOFINT = $_POST["VIN"];
 	
 	try {
 	
 	
-	$query1 = "SELECT * FROM `history` WHERE VIN = '$VINOFINT'";
+	$query1 = "SELECT * FROM history WHERE VIN = $VINOFINT";
 	
-	echo $query1;
 		$rows1 = $db->query($query1);
 			
 		foreach($rows1 as $row1)
-		{echo "<tr><td>".$row1['ResNo']."</td><td>".$row1['FName']."</td><td>".$row1['CreditCrdNo']."</td><td>".$row1['CreditExp']."</td><td>".$row1['AnnualFee']."</td></tr>";}
-		$query1 = null;
+		{
+		$Distance = ($row1['ReturnODMReading'] - $row1['PickupODMReading']);
+		echo "<tr><td>".$row1['ResNo']."</td><td>".$row1['MemberNo']."</td><td>".$row1['ResDate']."</td><td>".$row1['PickupTime']."</td><td>".$row1['PickupLocNo']."</td><td>".$row1['ReturnTime']."</td><td>".$Distance."</td><td>".$row1['Charge']."</td><td>";}
 		} catch (PDOException $e) 
 		{ print "Error!: " . $e->getMessage() . "<br/>";  
 		  die();}
