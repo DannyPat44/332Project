@@ -7,6 +7,10 @@
 
   <meta charset="utf-8">
   <title>jQuery UI Datepicker - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
     $( "#datepicker" ).datepicker();
@@ -35,7 +39,7 @@
 	
 	<?php
 
-	
+	$memNo =303;
 	$dbh = new PDO('mysql:host=localhost;dbname=KTCS', "root", "");
 	$rows = $dbh->query("SELECT locName FROM Locations");
 	#$con = mysql_connect("localhost","root","") or die ("Could not connect to mysql");
@@ -73,39 +77,72 @@
 	{
 	$pickupDate = $_POST["pickupDate"];
 	$newpickupDate = date("Y-m-d", strtotime($pickupDate));
-	#$newpickupDate = $newpickupDate.' '.$_POST["pickupTime"];
-	$returnDate = $_POST["pickupDate"];
+	$newpickupDateTime = $newpickupDate.' '.$_POST["pickupTime"];
+	$returnDate = $_POST["returnDate"];
 	$location = $_POST["location"];
 	echo $location;
-	$newreturnDate = date("Y-m-d", strtotime($pickupDate));
-	#$newreturnDate = $newreturnDate.' '.$_POST["returnTime"];
+	$newreturnDate = date("Y-m-d", strtotime($returnDate));
+	$newreturnDateTime = $newreturnDate.' '.$_POST["returnTime"];
 	try {
 	$dbh = new PDO('mysql:host=localhost;dbname=KTCS', "root", "");
 	$query1 = "SELECT * 
 	FROM car join locations on car.LocNo = locations.LocNo
-	WHERE VIN NOT IN(SELECT VIN FROM reservations WHERE(($newpickupDate < ReturnTime AND ReturnTime < $newreturnDate)
-	 OR ($newpickupDate < PickupTime AND PickupTime < $newreturnDate) 
-	 OR (PickupTime < $newpickupDate AND ReturnTime > $newreturnDate))) 
+	WHERE VIN NOT IN(SELECT VIN FROM reservations WHERE(('$newpickupDateTime' <= ReturnTime AND ReturnTime <= '$newreturnDateTime')
+	 OR ('$newpickupDateTime' <= PickupTime AND PickupTime <= '$newreturnDateTime') 
+	 OR (PickupTime <= '$newpickupDateTime' AND ReturnTime >= '$newreturnDateTime'))) 
 	AND LocName = '$location'";
+	
 	
 	
 		$rows1 = $dbh->query($query1);
 	
 		echo $query1;
-		
+		if($rows1 != NULL)
+		{
 		foreach($rows1 as $row1) {
-			
-		echo "<tr><td>".$row1['VIN']."</td><td>".$row1['Make']."</td><td>".$row1['Model']."</td><td>".$row1['Year']."</td><td>".$row1['FeeClass']."</td></tr>;
+		$locNo = $row1['LocNo'];
+		echo "<tr><td>".$row1['VIN']."</td><td>".$row1['Make']."</td><td>".$row1['Model']."</td><td>".$row1['Year']."</td><td>".$row1['FeeClass']."</td>";
 		#<td><button name='$row1['VIN']' value = 'Make Reservation' /></td></tr>";
-	
+		#echo "<td><input type='submit' name='makeResBtn' value = 'Make Reservation' id='". $row1['VIN'] ."' /></td></tr>";
 		
-		}
+		 #echo "<td><button type='button' >Make Reservation</button>   ";
+         echo "<td><a href='makeResDB.php?VIN=".$row1['VIN']."&amp;memNo=".$memNo."&amp;PickUpTime=".$newpickupDateTime."&amp;ReturnTime=".$newreturnDateTime."&amp;LocNo=".$locNo."' >Make Reservation</a></td></tr>";
+	
 		$query1 = null;
-		} catch (PDOException $e) {
+		} 
+		}
+		else
+		{
+			echo "no cars available for that time and location";
+		}
+		
+		
+	
+	}
+	catch (PDOException $e) {
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
 	}
 	}
+/*
+	if(isset($_POST['makeResBtn'])){
+	echo "<p>".$_POST['makeResBtn']."</p>";
+	echo $sql = "INSERT INTO History
+(ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo)
+Select ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo
+FROM Reservations 
+WHERE ResNo = '".$_POST['resNo']."' ";
+$query = $dbh->query($sql);
+if ($query == 1) { 
+    echo 'Reservation Has Been Deleted';
+} else { 
+    echo 'Deletion Failed';
+} 
+}
+*/
+
+
+
 	?>
 	</table>
 	</form>
