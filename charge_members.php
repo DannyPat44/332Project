@@ -56,13 +56,12 @@ Date of Annual Membership Renewal:
 	try {
 	
 	
-	$query1 = "SELECT MemberNo, FName, LName, CreditCrdNO, CreditExp, AnnualFee FROM member natural join memberfees WHERE (EXTRACT(MONTH FROM $DateofRenewal) = EXTRACT(MONTH FROM RegAnn)) AND (EXTRACT(DAY FROM $DateofRenewal) = EXTRACT(DAY FROM RegAnn))";
-	
-	echo $query1;
+	$query1 = "SELECT MemberNo, FName, LName, CreditCrdNo, CreditExp, AnnualFee FROM member natural join memberfees WHERE (EXTRACT(MONTH FROM '$DateofRenewal') = EXTRACT(MONTH FROM RegAnn)) AND (EXTRACT(DAY FROM '$DateofRenewal') = EXTRACT(DAY FROM RegAnn))";
+
 		$rows1 = $db->query($query1);
 			
 		foreach($rows1 as $row1)
-		{echo "<tr><td>".$row1['MemberNo']."</td><td>".$row1['FName']."</td><td>".$row1['CreditCrdNo']."</td><td>".$row1['CreditExp']."</td><td>".$row1['AnnualFee']."</td></tr>";}
+		{echo "<tr><td>".$row1['MemberNo']."</td><td>".$row1['FName']."</td><td>".$row1['LName']."</td><td>".$row1['CreditCrdNo']."</td><td>".$row1['CreditExp']."</td><td>".$row1['AnnualFee']."</td></tr>";}
 		$query1 = null;
 		} catch (PDOException $e) 
 		{ print "Error!: " . $e->getMessage() . "<br/>";  

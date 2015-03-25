@@ -1,3 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Charge Membership Fees</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+ <script>
+  $(function() {
+    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  });
+
+  </script>
+  
+</head>
+<body>
+	<h2>Register for KTCS</h2>
+
 <?php 
 
     // First we execute our common code to connection to the database and start the session 
@@ -284,10 +304,14 @@ if (!$result) {
     <input type="text" name="creditcrdno" value="" /> 
     <br /><br />
 	Credit Card Expire Date:<br /> 
-    <input type="text" name="creditexp" value="" /> 
-    <br /><br />	 
+	<input type="text" id=datepicker name="creditexp">
+    <br /><br />  
 	<input type="submit" value="Register" />
 </td>
 </tr>
 </table>
 </form>
+</table>
+</form>
+</body>
+</html>
