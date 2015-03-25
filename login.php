@@ -94,12 +94,14 @@
 			
 			$AdminStatus = $db->query($AdminQuery);
 			 // Redirect the user to the private members-only page. 
-			if( $AdminStatus == 'user')
-           { header("Location: private_User.php"); 
-            die("Redirecting to: private_User.php"); }
+			foreach($AdminStatus as $Status)
+			{
+			if( $Status ='Admin')
+           { header("Location: private_Admin.php"); 
+            die("Redirecting to: private_Admin.php"); }
 			else {
-			header("Location: private_Admin.php"); 
-            die("Redirecting to: private_Admin.php");}
+			header("Location: private_User.php"); 
+            die("Redirecting to: private_User.php");}}
         } 
         else 
         { 

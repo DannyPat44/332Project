@@ -204,6 +204,7 @@
         } 
 		
         $fName = $_POST['fname'];
+		$MemberType = $_POST['membertype'];
 		$lName = $_POST['lname'];
 		$AddHouseNo = $_POST['addhouseno'];
 		$AddAptNo = $_POST['addaptno'];
@@ -217,7 +218,7 @@
 		$CreditExp = $_POST['creditexp'];
 		$Email = $_POST['email'];
 		 
-	$update ="UPDATE member SET FName = '$fName', LName = '$lName', AddHouseNo = '$AddHouseNo', AddAptNo = '$AddAptNo', Addstreet = '$Addstreet', AddCity = '$AddCity', AddPstcde = '$AddPstcde', AddProvince = '$AddProvince', PrimPhoneNo = '$PrimPhoneNo', SecPhoneNo = '$SecPhoneNo', CreditCrdNo = '$CreditCrdNo', CreditExp = '$CreditExp', RegAnn = CURDATE(), MemberType = 'user' WHERE Email = '$Email'";
+	$update ="UPDATE member SET FName = '$fName', MemberType = '$MemberType', LName = '$lName', AddHouseNo = '$AddHouseNo', AddAptNo = '$AddAptNo', Addstreet = '$Addstreet', AddCity = '$AddCity', AddPstcde = '$AddPstcde', AddProvince = '$AddProvince', PrimPhoneNo = '$PrimPhoneNo', SecPhoneNo = '$SecPhoneNo', CreditCrdNo = '$CreditCrdNo', CreditExp = '$CreditExp', RegAnn = CURDATE() WHERE Email = '$Email'";
 	
 	// Execute the query
 $result2 = $db->query($update);
@@ -249,6 +250,18 @@ if (!$result) {
     License Number:<br /> 
     <input type="text" name="licenseNo" value="" /> 
     <br /><br /> 
+	Member Type:<br />
+	<?php
+	$rows = $db->query("SELECT MemberType FROM memberFees");
+	echo "<select name=membertype  value='Choose'>Dropdown</option>";
+	foreach ($rows as $row) {
+		echo "<option value='$row[MemberType]'</option>";
+		echo "<p>"."$row[MemberType]"."</p>";
+	}
+	
+	echo "</select>";
+	?>
+	<br /><br /> 
     E-Mail:<br /> 
     <input type="text" name="email" value="" /> 
     <br /><br /> 
@@ -278,7 +291,7 @@ if (!$result) {
     <input type="text" name="addpstcde" value="" /> 
     <br /><br /> 
 	Province:<br /> 
-   <select>
+   <select name=addprovince  value='Choose'>DropDown</option>
    <option value="ON">ON</option>
    <option value="QC">QC</option>
    <option value="AB">AB</option>

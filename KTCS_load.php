@@ -45,7 +45,7 @@
 
    mysqli_query($cxn,"CREATE TABLE Member(
                   MemberNo		INT(11)  		NOT NULL AUTO_INCREMENT,
-				  MemberType	VARCHAR(15)		NOT NULL,
+				  MemberType	VARCHAR(15),
 				  FName 		VARCHAR(15)		NOT NULL,
 				  LName			VARCHAR(20)		NOT NULL,
 				  AddHouseNo	INTEGER			NOT NULL,
@@ -110,7 +110,7 @@ mysqli_query($cxn,"CREATE TABLE RentalFees(
                   PRIMARY KEY(FeeClass));");
 				  
 mysqli_query($cxn,"CREATE TABLE Reservations(
-				  ResNo			INTEGER    		 NOT NULL,
+				  ResNo			INTEGER    		 NOT NULL AUTO_INCREMENT,
                   MemberNo		INTEGER			 NOT NULL,
                   VIN			CHAR(17)		 NOT NULL,
                   ResDate		DATE        	 NOT NULL,
@@ -125,11 +125,11 @@ mysqli_query($cxn,"insert into RentalFees values
 		 ('Coupe','22.50')
         ");
 mysqli_query($cxn,"insert into Reservations values
-         ('12356','8009','12345678912345678',CURDATE(),'2015-03-09 23:59:59','23','2015-03-11 14:00:00'),
-		 ('1232','303','16645678912345678',CURDATE(),'2015-05-12 18:00:00','14','2015-05-14 18:00:00'),
-		 ('12','234','17845678912345678',CURDATE(),'2015-04-11 23:52:59','2','2015-04-18 23:52:59'),
-		 ('123','303','16645678912345678',CURDATE(),'2015-06-12 23:59:59','14','2015-06-15 23:59:59'),
-		 ('124','234','17845678912345678',CURDATE(),'2015-06-10 18:00:00','2','2015-06-12 07:00:00')
+         (NULL,'1','12345678912345678',CURDATE(),'2015-03-09 23:59:59','23','2015-03-11 14:00:00'),
+		 ('NULL','2','16645678912345678',CURDATE(),'2015-05-12 18:00:00','14','2015-05-14 18:00:00'),
+		 ('NULL','1','17845678912345678',CURDATE(),'2015-04-11 23:52:59','2','2015-04-18 23:52:59'),
+		 ('NULL','2','16645678912345678',CURDATE(),'2015-06-12 23:59:59','14','2015-06-15 23:59:59'),
+		 ('NULL','1','17845678912345678',CURDATE(),'2015-06-10 18:00:00','2','2015-06-12 07:00:00')
 		 
 		 
 		 
@@ -156,13 +156,6 @@ mysqli_query($cxn,"insert into Locations values
          ('2','Brock Road','13','145 Division St'),
 		 ('14','The Lake','0','18 Burn Street'),
 		 ('48','Queens Campus','2','45 ByTown Drive')
-        ");
-mysqli_query($cxn,"insert into Member values
-         ('8009','Senior','Henry','Brown','55',NULL,'Kim Street','Burlington','L7h789','ON','78789','434353','Apple@stupid.com','adfsdfds','3333444455556666',CURDATE(),CURDATE()),
-		 ('303','Senior','Matt','Steel','89','1','Church St.','Kingston','L7y789','ON','453453454',NULL,'queens@stupid.com','fdfsdfsdfs','1111222233334444',CURDATE(),CURDATE()),
-		 ('148','VIP','Seng','Lemon','12',NULL,'Alfred St.','Kingston','L6h789','ON','234324433',NULL,'Yoyo@stupid.com','fsdfdsfdsfg','7777666655554444',CURDATE(),CURDATE()),
-		 ('234','Student','Henry','Que','45',NULL,'Wow Av.','Kingston','L7h745','ON','45453454',NULL,'Knee@stupid.com','131232fd','9999000022223333',CURDATE(),CURDATE()),
-		 ('5008','VIP','Jake','Weak','23',NULL,'Queen Ct.','Kingston','L7hu89','ON','123213',NULL,'Pear@stupid.com','fdfdsfd','5555222211114444',CURDATE(),CURDATE())
         ");
 		
 mysqli_query($cxn,"insert into Car values
