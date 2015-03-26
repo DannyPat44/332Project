@@ -36,6 +36,7 @@ Hello <?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8')
 <a href="register_car.php">Register Car</a><br /> 
 <a href="charge_members.php">Charge Membership Fees</a><br/>
 <a href="show_history_car.php">Show Car Rental Histories</a><br/>
+<a href="find_reservation.php">Reseverations for a Given Day</a><br/>
 <a href="logout.php"><button>Logout</button></a>
 </body>
 

@@ -96,7 +96,7 @@
 			 // Redirect the user to the private members-only page. 
 			foreach($AdminStatus as $Status)
 			{
-			if( $Status ='Admin')
+			if( $Status['MemberType'] =='Admin')
            { header("Location: private_Admin.php"); 
             die("Redirecting to: private_Admin.php"); }
 			else {
