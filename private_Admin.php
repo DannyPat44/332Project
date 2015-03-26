@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
 </head>
 <body>
 	<h2>Admin Dashboard</h2>
+
 
 <?php 
 
@@ -32,6 +34,7 @@
     // We can display the user's username to them by reading it from the session array.  Remember that because 
     // a username is user submitted content we must use htmlentities on it before displaying it to the user. 
 ?> 
+
 Hello <?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?><br /> 
 <a href="register_car.php">Register Car</a><br /> 
 <a href="charge_members.php">Charge Membership Fees</a><br/>

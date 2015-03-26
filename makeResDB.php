@@ -18,7 +18,14 @@
 	$resQuery = "INSERT INTO reservations VALUES (null,".$memNo.", ".$VIN.", '".date('Y-m-d H:i:s', time())."', '".$newpickupDate."', ".$locNo.", '".$newreturnDate."')";
 	#date('Y-m-d H:i:s', time())
 	echo $resQuery;
-    $result = $dbh->query($resQuery);
+    $dbh->exec($resQuery);
+	#echo $result;
+	echo "<p>Your reservation has been made.  Your reservation detials are as follows:</p>";
+	echo "<p>Pickup Date: $newpickupDate</p>";
+	echo "<p>Return Date: $newreturnDate</p>";
+	echo "<p>Pickup Location: ".$_GET['LocName']."</p>";
+	echo "<p>VIN: $VIN</p>";
+	
 	}
     catch (PDOException $e) {
     print "Error!: " . $e->getMessage() . "<br/>";
@@ -26,7 +33,7 @@
 	}
 	}
 	else{
-	echo "didn't work";
+	echo "Reservation could not be made. Please try again.";
 	}
 	?>
 	</body>

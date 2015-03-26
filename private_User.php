@@ -21,6 +21,7 @@
 ?> 
 Hello <?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?>, secret content!<br /> 
 <a href="memberlist.php">Memberlist</a><br /> 
+
 <a href="edit_account.php">Edit Account</a><br />
 <a href="history.php">Show Rental History</a><br/>
 <a href="makeRes.php">Make a Reservation</a><br/>
