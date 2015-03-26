@@ -35,6 +35,9 @@
 	else{
 	echo "Reservation could not be made. Please try again.";
 	}
+	
+	header("Location: private_user.php");
+	die("Redirecting to: private_user.php");
 	?>
 	</body>
 	</html>

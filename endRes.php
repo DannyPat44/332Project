@@ -30,22 +30,26 @@
 <body>
 <h2>End Reservation</h2>
 	
-	<form>
+	<form method="POST">
 	Return Odometer Reading:
 	<input type="text" name="returnODM">
 	Comments on Car:
 	<input type="text" name="carComments">
 	Comments on KTCS:
 	<input type="text" name="KTCScomments">
-	<a href='closeRes.php?resNo=$resNo'><button>Close Reservation</button>
+	<input type="submit" name="endRes"  value="End Reservation">
 	<?php
 	$memNoRes = $db->query("Select MemberNo from member where Email = '".$_SESSION['member']['Email']."'");
 	foreach ($memNoRes as $memNo1){
 	$memberNo = $memNo1['MemberNo'];
 	}
-	if(isset($_GET['resNo']))
-	{
+	
 	$resNo = $_GET['resNo'];
+	
+	
+	if(isset($_POST['endRes']))
+	{
+	$odm = $_POST["returnODM"];
 	
 	$insertQ = "INSERT INTO History(ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo)
 				Select ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo
@@ -64,11 +68,45 @@
 		WHERE ResNo = $resNo";
 		
 	$db->exec($resQ);
-	}
-	 /* if(isset($_POST['returnODM']))
-	{
-	echo 2;
+	
+	
+	#######
+	echo $odm;
 	$odmEnd = "UPDATE History
+			SET ReturnODMReading = ".$odm."
+			WHERE ResNo = $resNo";
+	$db->exec($odmEnd);
+			echo $odmEnd;
+	$odmCar = "UPDATE Car
+				SET ODMReading = ".$odm."
+				WHERE VIN = (Select VIN From History WHERE ResNo = $resNo)";
+	$db->exec($odmCar);
+	
+	$charge = "UPDATE History 
+			SET Charge = (TIMESTAMPDIFF(SECOND, (SELECT PickUPTime FROM reservations WHERE ResNo = $resNo), (SELECT ReturnTime FROM reservations WHERE ResNo = $resNo) )/3600)*(Select rate FROM rentalfees natural join(SELECT Feeclass FROM car natural join (SELECT VIN FROM Reservations WHERE ResNo = $resNo)getVIN)getfeeclass) 
+	WHERE ResNo = $resNo";
+	echo $charge;
+	$db->exec($charge);
+	
+	$db->exec("DELETE FROM Reservations WHERE ResNo = $resNo");
+	
+	
+	
+	header("Location: private_user.php");
+	die("Redirecting to: private_user.php");
+	}
+	
+	#echo "<input type=&#34;submit&#34; name=&#34;closeRes&#34;  value=&#34;Close&#34;>";
+	#echo "<a href='closeRes.php?resNo=$resNo&amp;odm=".$_POST['returnODM']."'><button>Close Reservation</button>";
+	echo "</form>";
+	/*  if(isset($_POST['closeRes']))
+	{
+		echo 2;
+		$odm = $_POST['returnODM'];
+		header("Location: closeRes.php?resNo=$resNo&amp;odm=$odm");
+		die("Redirecting to: closeRes.php?resNo=$resNo&amp;odm=$odm");
+	} */
+	/* $odmEnd = "UPDATE History
 			SET ReturnODMReading = ".$_POST['returnODM']."
 			WHERE ResNo = $resNO";
 	$db->exec($odmEnd);
@@ -84,14 +122,13 @@ WHERE ResNo = $resNo";
 
 	$db->exec($charge);
 	
-	$db->exec("DELETE FROM Reservations WHERE ResNo = $resNo");
+	$db->exec("DELETE FROM Reservations WHERE ResNo = $resNo"); */
 
 
-	}  */
+	  
 
 	
+	#
 	?>
-	
-	</form>
 	</body>
 	</html>

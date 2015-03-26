@@ -22,7 +22,8 @@
 Hello <?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?>, secret content!<br /> 
 <a href="edit_account.php">Edit Account</a><br /> 
 <a href="logout.php"><button>Logout</button></a>
-
+<a href="makeRes.php"><button>Make a Reservation</button></a>
+<a href="history.php"><button>View my Rental History</button></a>
 <!DOCTYPE html>
 <html>
 <head>
