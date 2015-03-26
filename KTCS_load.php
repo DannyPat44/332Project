@@ -95,7 +95,7 @@
                   PRIMARY KEY(ResNo));");
 				  
 mysqli_query($cxn,"CREATE TABLE Comments(
-                  CommentNo 	INTEGER 		NOT NULL,
+                  CommentNo 	INTEGER 		NOT NULL AUTO_INCREMENT,
 				  CommentDate	DATETIME		NOT NULL,
 				  MemeberNo 	INTEGER 		NOT NULL,
 				  Topic			VARCHAR(32) 	NOT NULL,
@@ -133,11 +133,11 @@ mysqli_query($cxn,"insert into Reservations values
 	 
         ");
      
-mysqli_query($cxn,"insert into Comments values
+/* mysqli_query($cxn,"insert into Comments values
          ('1',NOW(), '8009', 'Car','12345678912345678','HEY YALL HOW ARE YOU?',NULL),
 		 ('2',NOW(), '303', 'Car','16645678912345678','I AM FINE WHAT ABOUT YOU?','8009'),
 		 ('3',NOW(), '148', 'General',NULL,'I AM WELL TOO, THANKS','303')
-        ");
+        "); */
 		
 mysqli_query($cxn,"insert into MemberFees values
          ('Student','100.50'),
