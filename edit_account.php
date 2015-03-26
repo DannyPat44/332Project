@@ -4,7 +4,7 @@
     require("common.php"); 
      
 	 $LicenseNo = $_SESSION['member']['licenseNo'];
-	 $Email =  $_SESSION['member']['email'];
+	 $Email =  $_SESSION['member']['Email'];
 	 
     // At the top of the page we check to see whether the user is logged in or not 
     if(empty($_SESSION['member'])) 
@@ -265,10 +265,10 @@
 <h1>Edit Account</h1> 
 <form action="edit_account.php" method="post"> 
     Email:<br /> 
-    <b><?php echo htmlentities($_SESSION['member']['email'], ENT_QUOTES, 'UTF-8'); ?></b> 
+    <b><?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?></b> 
     <br /><br /> 
     E-Mail Address:<br /> 
-    <input type="text" name="email" value="<?php echo htmlentities($_SESSION['member']['email'], ENT_QUOTES, 'UTF-8'); ?>" /> 
+    <input type="text" name="email" value="<?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?>" /> 
     <br /><br /> 
     Password:<br /> 
     <input type="password" name="password" value="" /><br /> 
