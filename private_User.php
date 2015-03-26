@@ -73,27 +73,35 @@ try {
     die();
 }
 
-if(isset($_POST['resNo'])){
-echo "<p>".$_POST['resNo']."</p>";
-echo $sql = "INSERT INTO History
-(ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo)
-Select ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo
-FROM Reservations 
-WHERE ResNo = '".$_POST['resNo']."' ";
-$query = $db->query($sql);
-if ($query == 1) { 
-    echo 'Reservation Has Been Deleted';
-} else { 
-    echo 'Deletion Failed';
-} 
-}
+		echo "</table>
+	<h2>Upcoming Reservations</h2>
+	<table>
+		<th>VIN</th>
+		<th>PickupTime</th>
+		<th>Expected Return Time</th>
+		<th>Location</th>
+		<th>Cancel Reservation</th>";
+		$getFut = "SELECT * FROM reservations join locations on reservations.PickupLocNo = locations.LocNo WHERE MemberNo = $memberNo and pickupTime>NOW() order by PickupTime ";
+		echo $getFut;
+		$futRes = $db->query($getFut);
+	
+		foreach($futRes as $row) {
+		$resNo = $row['ResNo'];
+	    echo "<tr><td>".$row['VIN']."</td><td>".$row['PickupTime']."</td><td>".$row['ReturnTime']."</td><td>".$row['LocName']."</td>
+		<td><a href='cancelRes.php?resNo=".$resNo."' >Cancel Reservation</a></td></tr>";
+		#<td><form  method='POST'><input type='submit' name='resNo' value = 'End Reservation' id='". $resNo ."' /></form></td></tr>";
+#action='endRes.php'
+		}
+		echo "</table>";
 ?>
 		
 		
-	</table>
 	
+	<?php
+		
+		
 	
-	
+	?>
 	
 	
 	</body>
