@@ -1,4 +1,3 @@
-
 <?php 
     // First we execute our common code to connection to the database and start the session 
     require("common.php"); 
@@ -31,14 +30,7 @@
 <body>
 <h2>End Reservation</h2>
 	
-	<form>
-	Return Odometer Reading:
-	<input type="text" name="returnODM">
-	Comments on Car:
-	<input type="text" name="carComments">
-	Comments on KTCS:
-	<input type="text" name="KTCScomments">
-	<a href='closeRes.php?resNo=$resNo'><button>Close Reservation</button>
+	
 	<?php
 	$memNoRes = $db->query("Select MemberNo from member where Email = '".$_SESSION['member']['Email']."'");
 	foreach ($memNoRes as $memNo1){
@@ -48,29 +40,9 @@
 	{
 	$resNo = $_GET['resNo'];
 	
-	$insertQ = "INSERT INTO History(ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo)
-				Select ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo
-				FROM Reservations 
-				WHERE ResNo = $resNo";
-	$db->exec($insertQ);
-	
-	$odmQ = "UPDATE history 
-	SET pickupODMReading = (SELECT ODMReading FROM car natural join (SELECT VIN FROM reservations WHERE resNo = $resNo )getVIN)
-	WHERE resNo = $resNo ";
-
-	$db->exec($odmQ);
-	
-
-	
-
-
-	$resQ =  "UPDATE History
-		SET ReturnTime = CURRENT_TIMESTAMP()
-		WHERE ResNo = $resNo";
-		
-	$db->exec($resQ);
+	echo 2;
 	}
-	 /* if(isset($_POST['returnODM']))
+	 if(isset($_POST['returnODM']))
 	{
 	echo 2;
 	$odmEnd = "UPDATE History
@@ -92,11 +64,10 @@ WHERE ResNo = $resNo";
 	$db->exec("DELETE FROM Reservations WHERE ResNo = $resNo");
 
 
-	}  */
+	} 
 
 	
 	?>
-
 	
 	</form>
 	</body>
