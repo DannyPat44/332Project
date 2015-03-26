@@ -94,6 +94,7 @@
 			
 			$AdminStatus = $db->query($AdminQuery);
 			 // Redirect the user to the private members-only page. 
+
 			foreach($AdminStatus as $Status)
 			{
 			if( $Status['MemberType'] =='Admin')
@@ -102,6 +103,7 @@
 			else {
 			header("Location: private_User.php"); 
             die("Redirecting to: private_User.php");}}
+
         } 
         else 
         { 

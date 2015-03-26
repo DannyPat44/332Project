@@ -11,6 +11,7 @@
   $(function() {
     $( "#datepicker" ).datepicker();
   });
+
   
     function updateTextInput(val) {
       document.getElementById('rangeValue1').value= (val*100); 
@@ -160,8 +161,10 @@ if (!$result) {
 	?>
     <br /><br /> 
 	Gas Reading:<br /> 
+
 <input id="slider1" name="gasreading" type="range" min="0" max="1" step="0.05" onchange ="updateTextInput(this.value);"/>
 <input id="rangeValue1" type="text" value="50" Size=2>%
+
     <br /><br /> 
 	<?php
 	

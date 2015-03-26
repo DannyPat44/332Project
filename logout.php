@@ -8,4 +8,4 @@
      
     // We redirect them to the login page 
     header("Location: login.php"); 
-    die("Redirecting to: login.php");
+    die("Redirecting to: login.php");?>
