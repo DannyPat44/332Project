@@ -77,7 +77,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="private_User">Dashboard</a></li>
+            <li><a href="private_User.php">Dashboard</a></li>
             <li class="active"><a href="makeRes.php">Make a reservation<span class="sr-only">(current)</span></a></li>
             <li><a href="history.php">View Rental History</a></li>
 			<li><a href="edit_account.php">Edit Account</a></li>
