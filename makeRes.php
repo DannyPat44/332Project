@@ -23,14 +23,23 @@
 <head>
 
 <title>Make a Reservation</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
-  <meta charset="utf-8">
-  <title>jQuery UI Datepicker - Default functionality</title>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
+  <link href="dashboard.css" rel="stylesheet">
+  
   <script>
   $(function() {
     $( "#datepicker" ).datepicker();
@@ -44,9 +53,41 @@
 </head>
 
 <body>
-	<h2>Make a Reservations</h2>
-	
-	
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="about.php">K-Town Car Share</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+		    <li><a href="private_User.php">Dashboard for <?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?></a></li>
+			<li><a href="logout.php">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="private_User">Dashboard</a></li>
+            <li class="active"><a href="makeRes.php">Make a reservation<span class="sr-only">(current)</span></a></li>
+            <li><a href="history.php">View Rental History</a></li>
+			<li><a href="edit_account.php">Edit Account</a></li>
+            <li><a href="about.php">About Page</a></li>
+          </ul>
+        </div>
+		
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Make a Reservations</h1>
+
 	
 	<form method="POST">
 	<p>
@@ -85,15 +126,20 @@
 	Time(24-hour format):
 	<input type="text" name="returnTime" value = "08:00:00">
 	<input type="submit" name="findCars"  value="Find Available Cars">
-	
-	<table>
+	<h2 class="sub-header">Available Cars</h2>
+	<div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+			  <tr>
 		<th>VIN</th>
 		<th>Make</th>
 		<th>Model</th>
 		<th>Year</th>
 		<th>Fee Class</th>
 		<th>Make Reservation</th>
-		
+		 </tr>
+              </thead>
+              <tbody>
 	<?php
 	
 	if(isset($_POST['findCars']))
@@ -103,7 +149,7 @@
 	$newpickupDateTime = $newpickupDate.' '.$_POST["pickupTime"];
 	$returnDate = $_POST["returnDate"];
 	$location = $_POST["location"];
-	echo $location;
+
 	$newreturnDate = date("Y-m-d", strtotime($returnDate));
 	$newreturnDateTime = $newreturnDate.' '.$_POST["returnTime"];
 	try {
@@ -118,8 +164,7 @@
 	
 	
 		$rows1 = $db->query($query1);
-	
-		echo $query1;
+
 		if($rows1 != NULL)
 		{
 		foreach($rows1 as $row1) {
@@ -147,35 +192,14 @@
     die();
 	}
 	}
-/*
-	if(isset($_POST['makeResBtn'])){
-	echo "<p>".$_POST['makeResBtn']."</p>";
-	echo $sql = "INSERT INTO History
-(ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo)
-Select ResNo, MemberNo, VIN, ResDate, PickUpTime, PickupLocNo
-FROM Reservations 
-WHERE ResNo = '".$_POST['resNo']."' ";
-$query = $dbh->query($sql);
-if ($query == 1) { 
-    echo 'Reservation Has Been Deleted';
-} else { 
-    echo 'Deletion Failed';
-} 
-}
-*/
+
 
 
 
 	?>
-	</table>
-	</form>
-	
-	
-	
-	
-	
-	
-	
-	
+	    </tbody>
+    </table>
+</div>
+	</div>
 	</body>
 	</html>

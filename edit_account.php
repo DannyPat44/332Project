@@ -16,8 +16,65 @@
         // Remember that this die statement is absolutely critical.  Without it, 
         // people can view your members-only content without logging in. 
         die("Redirecting to login.php"); 
-    } 
-     
+    } ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <title>Edit Account</title>
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+	
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="about.php">K-Town Car Share</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+		    <li><a href="private_User.php">Dashboard for <?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?></a></li>
+			<li><a href="logout.php">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="private_User.php">Dashboard</a></li>
+            <li><a href="makeRes.php">Make a reservation</a></li>
+            <li><a href="history.php">View Rental History</a></li>
+			<li class="active"><a href="edit_account.php">Edit Account <span class="sr-only">(current)</span></a></li>
+            <li><a href="about.php">About Page</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Edit Account</h1>
+	
+	
+     <?php
     // This if statement checks to determine whether the edit form has been submitted
     // If it has, then the account updating code is run, otherwise the form is displayed 
     if(!empty($_POST)) 
@@ -263,10 +320,9 @@
     } 
      
 ?> 
-<h1>Edit Account</h1> 
-<form action="edit_account.php" method="post"> 
-    Email:<br /> 
-
+ 
+<form action="edit_account.php" method="post" role="form"> 
+   <label>Email:</label><br /> 
     <b><?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?></b> 
     <br /><br /> 
     E-Mail Address:<br /> 
@@ -319,3 +375,11 @@
     <input type="submit" value="Update Account" /> 
 	<i> </i>
 </form>
+</div>
+      </div>
+    </div>
+
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	  </body>
+</html>

@@ -2,21 +2,36 @@
 <html>
 <head>
 
-<title>Charge Membership Fees</title>
+<title>Register</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
  <script>
   $(function() {
     $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
   });
 
   </script>
-  
+   <link href="dashboard.css" rel="stylesheet">
 </head>
 <body>
-	<h2>Register for KTCS</h2>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">K-Town Car Share</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+          </ul>
+        </div>
+      </div>
+    </nav>
+	<div class="container-fluid">
+    <div class="row">
+	
 
 <?php 
 
@@ -242,15 +257,15 @@ if (!$result) {
     } 
      
 ?> 
-<h1>Register</h1> 
-<form action="register.php" method="post"> 
-<table>
-<tr>
-<td>
-    License Number:<br /> 
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+   <h1 class="page-header">Register</h1>
+<form action="register.php" role="form" method="post"> 
+<div class="form-group">
+<label for="licenseNo">License Number:</label>
     <input type="text" name="licenseNo" value="" /> 
-    <br /><br /> 
-	Member Type:<br />
+</div>
+<div class="form-group">
+<label for="membertype">Member Type:</label>
 	<?php
 	$rows = $db->query("SELECT MemberType FROM memberFees");
 	echo "<select name=membertype  value='Choose'>Dropdown</option>";
@@ -261,36 +276,45 @@ if (!$result) {
 	
 	echo "</select>";
 	?>
-	<br /><br /> 
-    E-Mail:<br /> 
-    <input type="text" name="email" value="" /> 
-    <br /><br /> 
-    Password:<br /> 
-    <input type="password" name="password" value="" /> 
-    <br /><br /> 
-	First Name:<br /> 
-    <input type="text" name="fname" value="" /> 
-    <br /><br /> 
-	Last Name:<br /> 
-    <input type="text" name="lname" value="" /> 
-    <br /><br /> 
-	House Number:<br /> 
+	</div>
+	<div class="form-group">
+    <label for="email">E-Mail:</label>
+    <input type="text" id="email" name="email" value="" /> 
+	</div>
+	<div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" value="" />
+	</div>
+	<div class="form-group">
+	<label for="fname">First Name:</label>
+    <input type="text" name="fname"  id="fname" value="" /> 
+	</div>
+	<div class="form-group">
+	<label for="lname">Last Name:</label>
+    <input type="text" name="lname" value="" />
+	</div>
+	<div class="form-group">
+	<label for="addhouse">House Number:</label>
     <input type="text" name="addhouseno" value="" /> 
-    <br /><br /> 
-	Apartment Number:<br /> 
+	</div>
+	<div class="form-group">
+	<label for="addaptno">Apartment Number:</label>
     <input type="text" name="addaptno" value="" /> 
-    <br /><br /> 
-	</td><td>	
-	Street Name:<br /> 
+	</div>
+	<div class="form-group">
+	<label for="addstreet">Street Name:</label>
     <input type="text" name="addstreet" value="" /> 
-    <br /><br /> 
-	City:<br /> 
+	</div>
+	<div class="form-group">
+	<label for="addcity">City:</label>
     <input type="text" name="addcity" value="" /> 
-    <br /><br /> 
-	Postal code:<br /> 
+	</div>
+	<div class="form-group">
+	<label for="addpstcde">Postal code:</label>
     <input type="text" name="addpstcde" value="" /> 
-    <br /><br /> 
-	Province:<br /> 
+	</div>
+	<div class="form-group">
+	<label for="addprovince">Province:</label> 
    <select name=addprovince  value='Choose'>DropDown</option>
    <option value="ON">ON</option>
    <option value="QC">QC</option>
@@ -306,25 +330,30 @@ if (!$result) {
    <option value="SK">SK</option>
    <option value="YT">YT</option>
    </select>
-    <br /><br /> 
-	Primary Phone Number:<br /> 
+   </div>
+   <div class="form-group">
+	<label for="primphoneno">Primary Phone Number:</label>
     <input type="text" name="primphoneno" value="" /> 
-    <br /><br />
-	Secondary Phone Number:<br /> 
+	</div>
+	<div class="form-group">
+	<label for="secphoneno">Secondary Phone Number:</label>
     <input type="text" name="secphoneno" value="" /> 
-    <br /><br />
-	Credit Card Number:<br /> 
+	</div>
+	<div class="form-group">
+	<label for="creditcrdno">Credit Card Number:</label>
     <input type="text" name="creditcrdno" value="" /> 
-    <br /><br />
-	Credit Card Expire Date:<br /> 
+	</div>
+	<div class="form-group">
+	<label for="creditexp">Credit Card Expire Date:</label>
 	<input type="text" id=datepicker name="creditexp">
-    <br /><br />  
+	</div>
+	<div class="form-group">
 	<input type="submit" value="Register" />
-</td>
-</tr>
-</table>
+	</div>
 </form>
-</table>
-</form>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

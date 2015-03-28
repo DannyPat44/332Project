@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php 
 
     // First we execute our common code to connection to the database and start the session 
@@ -120,14 +121,45 @@
     } 
      
 ?> 
-<h1>Login</h1> 
-<form action="login.php" method="post"> 
-   Email:<br /> 
-    <input type="text" name="email" value="<?php echo $submitted_email;?>" /> 
-    <br /><br /> 
-    Password:<br /> 
-    <input type="password" name="password" value="" /> 
-    <br /><br /> 
-    <input type="submit" value="Login" /> 
-</form> 
-<a href="register.php">Register</a>
+<html>
+<head>
+
+ <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin</title>
+
+    <!-- Bootstrap core CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    
+</head>
+
+<body>
+
+ <div class="container">
+
+      <form class="form-signin" action="login.php" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only" >Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+		<div class="checkbox">
+		<a href="register.php">Register</a>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Sign in</button>
+     </form>
+ </div> <!-- /container -->
+</body>
+</html>

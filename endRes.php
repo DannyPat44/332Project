@@ -22,23 +22,81 @@
 
 <!DOCTYPE html>
 <html>
-<head>
 
-<title>End Reservation</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <title>End Reservation</title>
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
 
 </head>
 
-<body>
-<h2>End Reservation</h2>
+ <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="about.php">K-Town Car Share</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+		    <li><a href="private_User.php">Dashboard for <?php echo htmlentities($_SESSION['member']['Email'], ENT_QUOTES, 'UTF-8'); ?></a></li>
+			<li><a href="logout.php">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="private_User.php">Dashboard <span class="sr-only"></span></a></li>
+            <li><a href="makeRes.php">Make a reservation</a></li>
+            <li><a href="history.php">View Rental History</a></li>
+			<li><a href="edit_account.php">Edit Account</a></li>
+            <li><a href="about.php">About Page</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">End Reservation</h1>
+
+
+
+<div class="col-sm-3">
 	
-	<form method="POST">
-	Return Odometer Reading:
-	<input type="text" name="returnODM">
-	Comments on Car:
-	<input type="text" name="carComments">
-	Comments on KTCS:
-	<input type="text" name="KTCScomments">
-	<input type="submit" name="endRes"  value="End Reservation">
+	<form role="form" method="POST" >
+	<div class="form-group">
+	<label for="returnODM">Return Odometer Reading: </label>
+	<input type="text"  id="returnODM" class="form-control" name="returnODM">
+	</div>
+	<div class="form-group">
+	<label for="carComments">Comments on Car: <label/>
+	<input type="text"  class="form-control"  id="carCommets" name="carComments">
+	</div>
+	<div class="form-group">
+	<label for="KTCScomments">Comments on KTCS: <label/>
+	<input type="text"  class="form-control" id="KTCScomments" name="KTCScomments">
+	</div>
+	<input type="submit"  name="endRes"  value="End Reservation">
+	
 	<?php
 	$memNoRes = $db->query("Select MemberNo from member where Email = '".$_SESSION['member']['Email']."'");
 	foreach ($memNoRes as $memNo1){
@@ -103,38 +161,14 @@
 	
 	#echo "<input type=&#34;submit&#34; name=&#34;closeRes&#34;  value=&#34;Close&#34;>";
 	#echo "<a href='closeRes.php?resNo=$resNo&amp;odm=".$_POST['returnODM']."'><button>Close Reservation</button>";
+	
 	echo "</form>";
-	/*  if(isset($_POST['closeRes']))
-	{
-		echo 2;
-		$odm = $_POST['returnODM'];
-		header("Location: closeRes.php?resNo=$resNo&amp;odm=$odm");
-		die("Redirecting to: closeRes.php?resNo=$resNo&amp;odm=$odm");
-	} */
-	/* $odmEnd = "UPDATE History
-			SET ReturnODMReading = ".$_POST['returnODM']."
-			WHERE ResNo = $resNO";
-	$db->exec($odmEnd);
-			echo $odmEnd;
-	$odmCar = "UPDATE Car
-				SET ODMReading = ".$_POST['returnODM']."
-				WHERE VIN = (Select VIN From History WHERE ResNo = $resNo)";
-	$db->exec($odmCar);
-	
-	$charge = "UPDATE History 
-			SET Charge = (TIMESTAMPDIFF(SECOND, (SELECT PickUPTime FROM reservations WHERE ResNo = $resNo), (SELECT ReturnTime FROM reservations WHERE ResNo = $resNo) )/3600)*(Select rate FROM rentalfees natural join(SELECT Feeclass FROM car natural join (SELECT VIN FROM Reservations WHERE ResNo = $resNo)getVIN)getfeeclass) 
-WHERE ResNo = $resNo";
 
-	$db->exec($charge);
-	
-	$db->exec("DELETE FROM Reservations WHERE ResNo = $resNo"); */
-
-
-	  
-
-	
-	#
 	?>
-
+	</div>
+	  </div>
+      </div>
+    </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	</body>
 	</html>
